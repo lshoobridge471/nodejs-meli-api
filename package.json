@@ -5,7 +5,7 @@
   "main": "build/index.js",
   "scripts": {
     "dev": "nodemon -r dotenv/config",
-    "prebuild": "npm run test:lint:fix",
+    "prebuild": "npm run lint",
     "build": "tsc",
     "prestart": "npm run build",
     "start": "node .",
@@ -23,6 +23,7 @@
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.11",
+    "@types/jest": "^26.0.20",
     "@types/moxios": "^0.4.10",
     "@types/supertest": "^2.0.10",
     "@typescript-eslint/eslint-plugin": "^4.16.1",

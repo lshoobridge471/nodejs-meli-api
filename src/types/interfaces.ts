@@ -3,7 +3,7 @@ import { Router, Handler } from "express";
 export interface Environment {
     NODE_ENV: string;
     SERVER_HOST: string;
-    SERVER_PORT: number;
+    SERVER_PORT: string;
     MELIAPI_URL: string;
 }
 
