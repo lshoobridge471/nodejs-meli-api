@@ -22,7 +22,6 @@ describe('items route test suite', () => {
 
     const itemsPath:string = '/items';
     const searchItemsURL:string = `/items?q=${mockRequest.query?.q as string}`;
-    console.log(searchItemsURL);
 
     const mockedResponse = {
         id: 33,
