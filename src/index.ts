@@ -16,11 +16,13 @@ app.use(json);
 dotenv.config();
 
 // Obtain the environments variables or the default values.
-const host: string = process.env.SERVER_HOST || "localhost";
-const port: number = toInteger(process.env.SERVER_PORT || "8080");
+const {
+    SERVER_HOST = "localhost",
+    SERVER_PORT = "3000"
+} = process.env;
 
 // Start the Express server
-app.listen(port, host, () => {
+app.listen(toInteger(SERVER_PORT), SERVER_HOST, () => {
     // tslint:disable-next-line:no-console
-    console.log(`NodeJS Express server started at http://${host}:${port}` );
+    console.log(`NodeJS Express server started at http://${SERVER_HOST}:${SERVER_PORT}` );
 });
