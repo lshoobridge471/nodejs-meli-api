@@ -1,7 +1,7 @@
 {
   "name": "meli-api",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "MELI Api with NodeJS & Express",
   "main": "build/index.js",
   "scripts": {
     "dev": "nodemon -r dotenv/config",
