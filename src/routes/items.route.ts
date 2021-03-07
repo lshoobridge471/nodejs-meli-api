@@ -24,7 +24,7 @@ const ItemsRoute = async (req: Request, res: Response) => {
         // If the response is ERROR.
         jsonResponse.message = err.message;
     });
-    res.send(jsonResponse);
+    res.json(jsonResponse);
 };
 
 export default ItemsRoute;

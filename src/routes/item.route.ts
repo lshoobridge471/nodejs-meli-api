@@ -12,9 +12,10 @@ const ItemRoute = async (req: Request, res: Response) => {
 
     // Parse the MELI URL Item detail endpoint
     const urlDetail: string = parseMELIAPIItemURL(id);
-
+    console.log(urlDetail);
     // Parse the MELI URL Item description endpoint
     const urlDescription: string = parseMELIAPIItemDescriptionURL(id);
+    console.log(urlDescription);
 
     // Generate calls to the urls (products & description)
     const calls = [
@@ -26,13 +27,13 @@ const ItemRoute = async (req: Request, res: Response) => {
         jsonResponse.data = {
             ...responses[0].data,
             description: responses[1].data
-        }; // Parse all responses into one.
+        };
         jsonResponse.status = 'OK';
     })).catch((error: AxiosError) => {
         // Parse error into a message.
         jsonResponse.message = error.message;
     })
-    res.send(jsonResponse);
+    res.json(jsonResponse);
 };
 
 export default ItemRoute;
