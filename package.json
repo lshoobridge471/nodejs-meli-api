@@ -2,7 +2,7 @@
   "name": "meli-api",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/index.js",
+  "main": "build/index.js",
   "scripts": {
     "dev": "nodemon -r dotenv/config",
     "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
