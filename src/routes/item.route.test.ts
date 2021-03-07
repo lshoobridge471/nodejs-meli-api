@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import ItemRoute from './item.route';
-import ItemDataMock from './__mocks__/item.route.mock';
 
 describe(' test suite', () => {
     const request: Partial<Request> = {
