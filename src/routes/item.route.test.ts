@@ -22,12 +22,12 @@ describe('item route test suite', () => {
 
     const itemPath: string[] = ["/item/:id", "/items/:id/description"];
 
-    const mockedResponseItem: object = {
+    const mockedResponseItem: Record<string, unknown> = {
         id: 33,
         name: "product name",
     };
 
-    const mockedResponseItemDetail: object = {
+    const mockedResponseItemDetail: Record<string, unknown> = {
         text_plain: "description text plain."
     };
 

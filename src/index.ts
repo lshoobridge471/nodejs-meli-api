@@ -15,6 +15,6 @@ const app = express();
 app.use('/', router) // Mount the router on the Express App.
 .use(json) // Use the JSON wrapper.
 .listen(toInteger(SERVER_PORT), SERVER_HOST, () => { // Start the Express server
-    // tslint:disable-next-line:no-console
+    //eslint-disable-next-line
     console.log(`NodeJS Express server started at http://${SERVER_HOST}:${SERVER_PORT}` );
 });

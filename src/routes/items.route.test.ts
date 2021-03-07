@@ -20,15 +20,15 @@ describe('items route test suite', () => {
       moxios.uninstall();
     });
 
-    const itemsPath:string = '/items';
-    const searchItemsURL:string = `/items?q=${mockRequest.query?.q as string}`;
+    const itemsPath = '/items';
+    const searchItemsURL = `/items?q=${mockRequest.query?.q as string}`;
 
     const mockedResponse = {
         id: 33,
         name: "Macbook PRO.",
     };
 
-    it('items route test fetch mocked data', async () => {;
+    it('items route test fetch mocked data', async () => {
         // Parse URL of MELI Product Detail
         const urlSearch = parseMELIAPISearchURL(mockRequest.query?.q as string);
 

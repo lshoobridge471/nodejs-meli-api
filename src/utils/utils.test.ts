@@ -26,21 +26,21 @@ describe('utils test suite', () => {
     });
 
     it('test parseMELIAPISearchURL', () => {
-        const query: string = 'macbook';
-        const parsedUrl: string = parseMELIAPISearchURL(query);
-        const url: string = `${CONFIG.MELIAPI_URL}/sites/MLA/search?q=${query}`;
+        const query = 'macbook';
+        const parsedUrl = parseMELIAPISearchURL(query);
+        const url = `${CONFIG.MELIAPI_URL}/sites/MLA/search?q=${query}`;
         expect(parsedUrl).toEqual(url);
     });
 
     it('test parseMELIAPIItemURL', () => {
-        const parsedUrl: string = parseMELIAPIItemURL(defaultItemID);
-        const url: string = `${CONFIG.MELIAPI_URL}/items/${defaultItemID}`;
+        const parsedUrl = parseMELIAPIItemURL(defaultItemID);
+        const url = `${CONFIG.MELIAPI_URL}/items/${defaultItemID}`;
         expect(parsedUrl).toEqual(url);
     });
 
     it('test parseMELIAPIItemDescriptionURL', () => {
-        const parsedUrl: string = parseMELIAPIItemDescriptionURL(defaultItemID);
-        const url: string = `${CONFIG.MELIAPI_URL}/items/${defaultItemID}/description`;
+        const parsedUrl = parseMELIAPIItemDescriptionURL(defaultItemID);
+        const url = `${CONFIG.MELIAPI_URL}/items/${defaultItemID}/description`;
         expect(parsedUrl).toEqual(url);
     });
 

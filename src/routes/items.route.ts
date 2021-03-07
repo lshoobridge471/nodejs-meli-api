@@ -3,7 +3,7 @@ import { parseMELIAPISearchURL, defaultJSONResponse } from '../utils/utils';
 import { JSONResponse } from '../types/interfaces';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 
-const ItemsRoute = async (req: Request, res: Response) => {
+const ItemsRoute = async (req: Request, res: Response): Promise<void>  => {
     // Default response.
     const jsonResponse: JSONResponse = defaultJSONResponse();
 

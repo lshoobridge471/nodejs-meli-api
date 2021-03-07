@@ -11,10 +11,10 @@ export interface AddRouteProps {
     router: Router;
     path: string | string[];
     handler: Handler;
-};
+}
 
 export interface JSONResponse {
     status: string;
     message: string;
-    data?: any[] | object;
+    data?: Record<string, unknown>;
 }

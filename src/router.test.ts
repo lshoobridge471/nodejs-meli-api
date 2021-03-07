@@ -8,6 +8,7 @@ describe('router test suite', () => {
         const customRouter: Router = router;
 
         const routesNames = routes.map((route: Omit<AddRouteProps, 'router'>) => route.handler.name);
+        // eslint-disable-next-line
         const appRoutesNames = customRouter.stack.map((route: any) => route.name);
 
         expect(routesNames).toEqual(appRoutesNames);

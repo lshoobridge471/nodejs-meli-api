@@ -3,7 +3,7 @@ import { defaultJSONResponse, parseMELIAPIItemURL, parseMELIAPIItemDescriptionUR
 import { JSONResponse } from '../types/interfaces';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 
-const ItemRoute = async (req: Request, res: Response) => {
+const ItemRoute = async (req: Request, res: Response): Promise<void> => {
     // Default response.
     const jsonResponse: JSONResponse = defaultJSONResponse();
 
