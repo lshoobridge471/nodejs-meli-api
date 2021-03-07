@@ -25,7 +25,7 @@ El servidor contiene las siguientes caracteristicas:
 
 ## Instalacion
 
-Debemos tener instalado Node >= 10 en nuestra PC.
+Debemos tener instalados **Node >= 10** y **GIT 2.13.0** en nuestra PC.
 
 Ejecutamos:
 
