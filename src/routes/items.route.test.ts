@@ -31,7 +31,7 @@ describe('items route test suite', () => {
     it('items route test fetch mocked data', async () => {;
         // Parse URL of MELI Product Detail
         const urlSearch = parseMELIAPISearchURL(mockRequest.query?.q as string);
-        
+
         // Mock responses
         moxios.stubRequest(urlSearch, {
             status: 200,

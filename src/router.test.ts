@@ -9,7 +9,7 @@ describe('router test suite', () => {
 
         const routesNames = routes.map((route: Omit<AddRouteProps, 'router'>) => route.handler.name);
         const appRoutesNames = customRouter.stack.map((route: any) => route.name);
-        
+
         expect(routesNames).toEqual(appRoutesNames);
         expect(routesNames).toHaveLength(routes.length);
         expect(appRoutesNames).toHaveLength(routes.length);

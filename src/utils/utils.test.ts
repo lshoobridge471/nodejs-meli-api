@@ -14,7 +14,7 @@ import express, { Express, Router } from 'express';
 
 describe('utils test suite', () => {
     const defaultItemID = '33bb123';
-    const JSONResponse: JSONResponse = {
+    const jSONResponse: JSONResponse = {
         'status': 'ERR',
         'message': '',
         'data': {},
@@ -24,31 +24,31 @@ describe('utils test suite', () => {
         const num: number = toInteger("3");
         expect(num).toEqual(3);
     });
-    
+
     it('test parseMELIAPISearchURL', () => {
         const query: string = 'macbook';
         const parsedUrl: string = parseMELIAPISearchURL(query);
         const url: string = `${CONFIG.MELIAPI_URL}/sites/MLA/search?q=${query}`;
         expect(parsedUrl).toEqual(url);
     });
-    
+
     it('test parseMELIAPIItemURL', () => {
         const parsedUrl: string = parseMELIAPIItemURL(defaultItemID);
         const url: string = `${CONFIG.MELIAPI_URL}/items/${defaultItemID}`;
         expect(parsedUrl).toEqual(url);
     });
-    
+
     it('test parseMELIAPIItemDescriptionURL', () => {
         const parsedUrl: string = parseMELIAPIItemDescriptionURL(defaultItemID);
         const url: string = `${CONFIG.MELIAPI_URL}/items/${defaultItemID}/description`;
         expect(parsedUrl).toEqual(url);
     });
-    
+
     it('test defaultJSONResponse', () => {
         const utilResponse: JSONResponse = defaultJSONResponse();
-        expect(utilResponse).toEqual(JSONResponse);
+        expect(utilResponse).toEqual(jSONResponse);
     });
-    
+
     it('test createExpressApp', () => {
         const router: Router = Router();
         const app: Express = createExpressApp(router);
@@ -61,7 +61,7 @@ describe('utils test suite', () => {
         // Test
         expect(routerStackApp).toStrictEqual(routerStackMockApp);
     });
-    
+
     it('test addAppRoute', () => {
         const router = Router();
         const app: Express = createExpressApp(router);

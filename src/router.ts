@@ -7,6 +7,6 @@ import routes from './routes/routes';
 const router = Router();
 
 // Loop the routes and add to Express Router.
-routes.forEach((props: AddRouteProps) => addRoute({...props, router: router }));
+routes.forEach((props: AddRouteProps) => addRoute({...props, router }));
 
 export default router;

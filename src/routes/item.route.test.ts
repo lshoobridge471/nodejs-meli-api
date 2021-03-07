@@ -34,11 +34,11 @@ describe('item route test suite', () => {
     it('item route test fetch mocked data', async () => {
         // Merge response Item Detail + Description
         const mergedResponse = {...mockedResponseItem, description: mockedResponseItemDetail };
-        
+
         // Parse URL of MELI Product Detail
         const urlItem = parseMELIAPIItemURL(mockRequest.params.id);
         const urlItemDetail = parseMELIAPIItemDescriptionURL(mockRequest.params.id);
-        
+
         // Mock responses
         moxios.stubRequest(urlItem, {
             status: 200,
