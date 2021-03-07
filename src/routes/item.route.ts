@@ -12,10 +12,8 @@ const ItemRoute = async (req: Request, res: Response) => {
 
     // Parse the MELI URL Item detail endpoint
     const urlDetail: string = parseMELIAPIItemURL(id);
-    console.log(urlDetail);
     // Parse the MELI URL Item description endpoint
     const urlDescription: string = parseMELIAPIItemDescriptionURL(id);
-    console.log(urlDescription);
 
     // Generate calls to the urls (products & description)
     const calls = [
@@ -34,6 +32,7 @@ const ItemRoute = async (req: Request, res: Response) => {
         jsonResponse.message = error.message;
     })
     res.json(jsonResponse);
+    return Promise.resolve();
 };
 
 export default ItemRoute;

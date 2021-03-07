@@ -5,8 +5,12 @@ import {
     parseMELIAPISearchURL,
     parseMELIAPIItemURL,
     parseMELIAPIItemDescriptionURL,
-    defaultJSONResponse
+    defaultJSONResponse,
+    createExpressApp,
+    addAppRoute
 } from "./utils";
+import ItemsRoute from "../routes/items.route";
+import express, { Express, Router } from 'express';
 
 describe('utils test suite', () => {
     const defaultItemID = '33bb123';
@@ -17,30 +21,53 @@ describe('utils test suite', () => {
     };
 
     it('test toInteger', () => {
-        expect(toInteger("3")).toEqual(3);
+        const num: number = toInteger("3");
+        expect(num).toEqual(3);
     });
     
     it('test parseMELIAPISearchURL', () => {
-        const query = 'macbook';
-        const parsedUrl = parseMELIAPISearchURL(query);
-        const url = `${CONFIG.MELIAPI_URL}/sites/MLA/search?q=${query}`;
+        const query: string = 'macbook';
+        const parsedUrl: string = parseMELIAPISearchURL(query);
+        const url: string = `${CONFIG.MELIAPI_URL}/sites/MLA/search?q=${query}`;
         expect(parsedUrl).toEqual(url);
     });
     
     it('test parseMELIAPIItemURL', () => {
-        const parsedUrl = parseMELIAPIItemURL(defaultItemID);
-        const url = `${CONFIG.MELIAPI_URL}/items/${defaultItemID}`;
+        const parsedUrl: string = parseMELIAPIItemURL(defaultItemID);
+        const url: string = `${CONFIG.MELIAPI_URL}/items/${defaultItemID}`;
         expect(parsedUrl).toEqual(url);
     });
     
     it('test parseMELIAPIItemDescriptionURL', () => {
-        const parsedUrl = parseMELIAPIItemDescriptionURL(defaultItemID);
-        const url = `${CONFIG.MELIAPI_URL}/items/${defaultItemID}/description`;
+        const parsedUrl: string = parseMELIAPIItemDescriptionURL(defaultItemID);
+        const url: string = `${CONFIG.MELIAPI_URL}/items/${defaultItemID}/description`;
         expect(parsedUrl).toEqual(url);
     });
     
     it('test defaultJSONResponse', () => {
-        const utilResponse = defaultJSONResponse();
+        const utilResponse: JSONResponse = defaultJSONResponse();
         expect(utilResponse).toEqual(JSONResponse);
+    });
+    
+    it('test createExpressApp', () => {
+        const router: Router = Router();
+        const app: Express = createExpressApp(router);
+        const mockApp: Express = express();
+
+        mockApp.use(router);
+        // Parse string
+        const routerStackApp: string = JSON.stringify(app._router.stack);
+        const routerStackMockApp: string = JSON.stringify(mockApp._router.stack);
+        // Test
+        expect(routerStackApp).toStrictEqual(routerStackMockApp);
+    });
+    
+    it('test addAppRoute', () => {
+        const router = Router();
+        const app: Express = createExpressApp(router);
+        addAppRoute(app, '/items', ItemsRoute);
+        // Check last item added
+        const lastItem = app._router.stack.slice(-1).pop();
+        expect(lastItem.name).toEqual(ItemsRoute.name);
     });
 });

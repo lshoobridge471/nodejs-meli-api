@@ -1,5 +1,6 @@
 import { AddRouteProps, JSONResponse } from "../types/interfaces";
 import CONFIG from '../config/config';
+import express, { Express, Router, Handler } from 'express';
 
 // Function that convert string into a number.
 export const toInteger = (value: string): number => parseInt(value, 0);
@@ -8,6 +9,19 @@ export const toInteger = (value: string): number => parseInt(value, 0);
 export const addRoute = (addRouteProps: AddRouteProps): void => {
     const { router, path, handler } = addRouteProps;
     router.use(path, handler);
+};
+
+// Create Express App Route function.
+export const addAppRoute = (app: Express, path: string | string[], handler: Handler): Express => {
+    app._router.use(path, handler);
+    return app;
+};
+
+// Create Express App
+export const createExpressApp = (router: Router): Express => {
+    const app: Express = express();
+    app.use(router);
+    return app;
 };
 
 // Function to parse MELI API Search URL.
