@@ -58,7 +58,7 @@ El mismo leera las variables de entorno que estan en el archivo .env
 ##### *Ejemplo de salida:*
 ```bash
 lshoobridge-air:api lshoobridge$ npm run start
-NodeJS Express server started at http://127.0.0.1:9090
+NodeJS Express server started at http://localhost:8080
 ```
 
 
