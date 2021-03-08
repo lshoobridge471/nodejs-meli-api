@@ -8,14 +8,18 @@ const {
     NODE_ENV = 'development',
     SERVER_HOST = 'localhost',
     SERVER_PORT = '3000',
-    MELIAPI_URL = 'https://api.mercadolibre.com'
+    MELIAPI_URL = 'https://api.mercadolibre.com',
+    AUTHOR_NAME = 'Lucas',
+    AUTHOR_LASTNAME = 'Shoobridge'
 } = process.env;
 
 const CONFIG: Environment = {
     NODE_ENV,
     SERVER_HOST,
     SERVER_PORT,
-    MELIAPI_URL
+    MELIAPI_URL,
+    AUTHOR_NAME,
+    AUTHOR_LASTNAME
 };
 
 export default CONFIG;

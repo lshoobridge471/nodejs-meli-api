@@ -5,6 +5,8 @@ export interface Environment {
     SERVER_HOST: string;
     SERVER_PORT: string;
     MELIAPI_URL: string;
+    AUTHOR_NAME: string;
+    AUTHOR_LASTNAME: string;
 }
 
 export interface AddRouteProps {
@@ -13,8 +15,14 @@ export interface AddRouteProps {
     handler: Handler;
 }
 
+export interface AuthorInterface {
+    name: string;
+    lastname?: string;
+}
+
 export interface JSONResponse {
-    status: string;
-    message: string;
-    data?: Record<string, unknown>;
+    author: AuthorInterface;
+    error?: string;
+    // eslint-disable-next-line
+    [x: string]: any;
 }

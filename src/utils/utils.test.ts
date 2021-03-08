@@ -15,9 +15,10 @@ import express, { Express, Router } from 'express';
 describe('utils test suite', () => {
     const defaultItemID = '33bb123';
     const jSONResponse: JSONResponse = {
-        'status': 'ERR',
-        'message': '',
-        'data': {},
+        author: {
+            name: CONFIG.AUTHOR_NAME,
+            lastname: CONFIG.AUTHOR_LASTNAME,
+        },
     };
 
     it('test toInteger', () => {

@@ -5,7 +5,7 @@ import axios, { AxiosError, AxiosResponse } from 'axios';
 
 const ItemRoute = async (req: Request, res: Response): Promise<void> => {
     // Default response.
-    const jsonResponse: JSONResponse = defaultJSONResponse();
+    let jsonResponse: JSONResponse = defaultJSONResponse();
 
     // Obtain the "q" parameter as a query string to find.
     const id: string = req.params?.id && req.params.id;
@@ -22,11 +22,11 @@ const ItemRoute = async (req: Request, res: Response): Promise<void> => {
     ];
     // Call all the urls provided.
     await axios.all(calls).then(axios.spread((...responses: AxiosResponse[]) => {
-        jsonResponse.data = {
+        jsonResponse = {
+            ...jsonResponse,
             ...responses[0].data,
-            description: responses[1].data
+            description: responses[1].data.plain_text
         };
-        jsonResponse.status = 'OK';
     })).catch((error: AxiosError) => {
         // Parse error into a message.
         jsonResponse.message = error.message;

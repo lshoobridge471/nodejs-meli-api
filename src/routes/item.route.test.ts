@@ -3,6 +3,8 @@ import { parseMELIAPIItemURL, parseMELIAPIItemDescriptionURL, addAppRoute, creat
 import moxios from 'moxios';
 import request, { Response as SuperTestResponse, } from 'supertest';
 import ItemRoute from './item.route';
+import { JSONResponse } from '../types/interfaces';
+import { defaultJSONResponse as getDefaultJSONResponse } from '../utils/utils';
 
 describe('item route test suite', () => {
 
@@ -22,18 +24,21 @@ describe('item route test suite', () => {
 
     const itemPath: string[] = ["/item/:id", "/items/:id/description"];
 
+    const defaultJSONResponse: JSONResponse = getDefaultJSONResponse();
+
     const mockedResponseItem: Record<string, unknown> = {
+        ...defaultJSONResponse,
         id: 33,
         name: "product name",
     };
 
     const mockedResponseItemDetail: Record<string, unknown> = {
-        text_plain: "description text plain."
+        plain_text: "description text plain."
     };
 
     it('item route test fetch mocked data', async () => {
         // Merge response Item Detail + Description
-        const mergedResponse = {...mockedResponseItem, description: mockedResponseItemDetail };
+        const mergedResponse = {...mockedResponseItem, description: mockedResponseItemDetail.plain_text };
 
         // Parse URL of MELI Product Detail
         const urlItem = parseMELIAPIItemURL(mockRequest.params.id);
@@ -62,7 +67,7 @@ describe('item route test suite', () => {
         // Parse JSON response
         const jsonResponse = JSON.parse(response.text);
         // Check reponse data
-        expect(mergedResponse).toEqual(jsonResponse.data);
+        expect(mergedResponse).toEqual(jsonResponse);
         // Check url's called
         expect(moxios.requests.at(0).url).toBe(urlItem);
         expect(moxios.requests.at(1).url).toBe(urlItemDetail);

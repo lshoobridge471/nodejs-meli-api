@@ -1,8 +1,9 @@
 import { Request, Router } from 'express';
-import { createExpressApp, parseMELIAPISearchURL, addAppRoute } from '../utils/utils';
+import { createExpressApp, parseMELIAPISearchURL, addAppRoute, defaultJSONResponse as getDefaultJSONResponse } from '../utils/utils';
 import moxios from 'moxios';
 import request, { Response as SuperTestResponse, } from 'supertest';
 import ItemsRoute from './items.route';
+import { JSONResponse } from '../types/interfaces';
 
 describe('items route test suite', () => {
 
@@ -23,7 +24,10 @@ describe('items route test suite', () => {
     const itemsPath = '/items';
     const searchItemsURL = `/items?q=${mockRequest.query?.q as string}`;
 
+    const defaultJSONResponse: JSONResponse = getDefaultJSONResponse();
+
     const mockedResponse = {
+        ...defaultJSONResponse,
         id: 33,
         name: "Macbook PRO.",
     };
@@ -50,7 +54,7 @@ describe('items route test suite', () => {
         // Parse JSON response
         const jsonResponse = JSON.parse(response.text);
         // Check reponse data
-        expect(mockedResponse).toEqual(jsonResponse.data);
+        expect(mockedResponse).toEqual(jsonResponse);
         // Check url's called
         expect(moxios.requests.at(0).url).toBe(urlSearch);
         expect(moxios.requests.mostRecent().url).toBe(urlSearch);

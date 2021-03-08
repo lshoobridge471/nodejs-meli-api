@@ -36,9 +36,10 @@ export const parseMELIAPIItemDescriptionURL = (id: string): string => `${CONFIG.
 // Function to get default JSON response
 export const defaultJSONResponse = (): JSONResponse => {
     const response: JSONResponse = {
-        'status': 'ERR',
-        'message': '',
-        'data': {},
-    }
+        author: {
+            name: CONFIG.AUTHOR_NAME,
+            lastname: CONFIG.AUTHOR_LASTNAME,
+        }
+    };
     return response;
 };
