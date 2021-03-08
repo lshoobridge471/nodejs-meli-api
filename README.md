@@ -90,6 +90,21 @@ Podemos ejecutar el servidor ya compilado con el comando:
 node build/index.js
 ```
 
+## URLS api
+#### Buscar un producto: **/items?q=:producto**
+
+Ejecutamos llamadas con la ip y puerto por defecto:
+```bash
+curl http://localhost:8080/items?q=:producto
+```
+#### Ver detalle de un producto: **/item/:id**
+
+Ejecutamos llamadas con la ip y puerto por defecto:
+```bash
+curl http://localhost:8080/item/:id
+```
+
+
 # Creditos
 
 Sistema creado por Lucas Shoobridge para entrevista con MercadoLibre.
