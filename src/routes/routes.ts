@@ -5,11 +5,11 @@ import Route404 from './404.route';
 
 // Define routes
 const routes: Omit<AddRouteProps, 'router'>[] = [{
-        path: "/items",
+        path: "/api/items",
         handler: ItemsRoute
     },
     {
-        path: ["/item/:id", "/items/:id/description"],
+        path: ["/api/item/:id", "/items/:id/description"],
         handler: ItemRoute
     },
     {
