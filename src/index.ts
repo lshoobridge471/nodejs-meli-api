@@ -21,9 +21,9 @@ if(isDevelopment) {
     // Only add in development
     app.use(morgan('dev'));
 }
+app.use(cors()) // Enable cors.
 app.use('/', router) // Mount the router on the Express App.
 app.use(json) // Use the JSON wrapper.
-app.use(cors()) // Enable cors.
 .listen(toInteger(SERVER_PORT), SERVER_HOST, () => { // Start the Express server
     //eslint-disable-next-line
     console.log(`NodeJS Express server started at http://${SERVER_HOST}:${SERVER_PORT}` );
