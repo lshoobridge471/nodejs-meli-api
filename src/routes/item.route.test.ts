@@ -1,5 +1,5 @@
 import { Request, Router } from 'express';
-import { parseMELIAPIItemURL, parseMELIAPIItemDescriptionURL, addAppRoute, createExpressApp } from '../utils/utils';
+import { parseMELIAPIItemURL, parseMELIAPIItemDescriptionURL, addAppRoute, createExpressApp, parseProductDetailData } from '../utils/utils';
 import moxios from 'moxios';
 import request, { Response as SuperTestResponse, } from 'supertest';
 import ItemRoute from './item.route';
@@ -27,9 +27,16 @@ describe('item route test suite', () => {
     const defaultJSONResponse: JSONResponse = getDefaultJSONResponse();
 
     const mockedResponseItem: Record<string, unknown> = {
-        ...defaultJSONResponse,
         id: 33,
-        name: "product name",
+        title: "Macbook PRO.",
+        shipping: {
+            free_shipping: true
+        },
+        price: 33,
+        currency_id: "ARS",
+        condition: "new",
+        thumbnail: "thumburl",
+        sold_quantity: 3,
     };
 
     const mockedResponseItemDetail: Record<string, unknown> = {
@@ -38,7 +45,11 @@ describe('item route test suite', () => {
 
     it('item route test fetch mocked data', async () => {
         // Merge response Item Detail + Description
-        const mergedResponse = {...mockedResponseItem, description: mockedResponseItemDetail.plain_text };
+        const mergedResponse = {
+            ...defaultJSONResponse,
+            ...parseProductDetailData(mockedResponseItem),
+            description: mockedResponseItemDetail.plain_text
+        };
 
         // Parse URL of MELI Product Detail
         const urlItem = parseMELIAPIItemURL(mockRequest.params.id);
@@ -67,7 +78,7 @@ describe('item route test suite', () => {
         // Parse JSON response
         const jsonResponse = JSON.parse(response.text);
         // Check reponse data
-        expect(mergedResponse).toEqual(jsonResponse);
+        expect(jsonResponse).toEqual(mergedResponse);
         // Check url's called
         expect(moxios.requests.at(0).url).toBe(urlItem);
         expect(moxios.requests.at(1).url).toBe(urlItemDetail);

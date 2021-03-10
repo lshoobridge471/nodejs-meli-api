@@ -26,3 +26,32 @@ export interface JSONResponse {
     // eslint-disable-next-line
     [x: string]: any;
 }
+
+export interface AnyData {
+    // eslint-disable-next-line
+    [x: string]: any;
+}
+
+export interface IPriceData {
+    currency: string;
+    amount: number;
+    decimals: number;
+}
+
+export interface IProductData {
+    id: string;
+    title: string;
+    price: IPriceData;
+    picture: string;
+    condition: string;
+    free_shipping: boolean;
+}
+
+export interface IProductDetailData extends IProductData {
+    sold_quantity: number;
+}
+
+export interface ICategoryPath {
+    id: string;
+    name: string;
+}

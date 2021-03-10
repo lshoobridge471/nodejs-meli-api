@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { defaultJSONResponse, parseMELIAPIItemURL, parseMELIAPIItemDescriptionURL } from '../utils/utils';
-import { JSONResponse } from '../types/interfaces';
+import { defaultJSONResponse, parseMELIAPIItemURL, parseMELIAPIItemDescriptionURL, parseProductDetailData } from '../utils/utils';
+import { IProductDetailData, JSONResponse } from '../types/interfaces';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 
 const ItemRoute = async (req: Request, res: Response): Promise<void> => {
@@ -16,23 +16,25 @@ const ItemRoute = async (req: Request, res: Response): Promise<void> => {
     const urlDescription: string = parseMELIAPIItemDescriptionURL(id);
 
     // Generate calls to the urls (products & description)
-    const calls = [
+    // eslint-disable-next-line
+    const calls: Promise<AxiosResponse<any>>[] = [
         axios.get(urlDetail),
         axios.get(urlDescription),
     ];
     // Call all the urls provided.
-    await axios.all(calls).then(axios.spread((...responses: AxiosResponse[]) => {
+    await axios.all(calls).then(axios.spread((...responses: AxiosResponse[]): void => {
+        // Get necesary data.
+        const productData: IProductDetailData = parseProductDetailData(responses[0].data);
         jsonResponse = {
             ...jsonResponse,
-            ...responses[0].data,
+            ...productData,
             description: responses[1].data.plain_text
         };
-    })).catch((error: AxiosError) => {
+    })).catch((error: AxiosError): void => {
         // Parse error into a message.
         jsonResponse.message = error.message;
     })
     res.json(jsonResponse);
-    return Promise.resolve();
 };
 
 export default ItemRoute;

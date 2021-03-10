@@ -1,5 +1,5 @@
-import { AddRouteProps, JSONResponse } from "../types/interfaces";
 import CONFIG from '../config/config';
+import { AddRouteProps, AnyData, ICategoryPath, IProductData, IProductDetailData, JSONResponse } from "../types/interfaces";
 import express, { Express, Router, Handler } from 'express';
 
 // Function that convert string into a number.
@@ -42,4 +42,39 @@ export const defaultJSONResponse = (): JSONResponse => {
         }
     };
     return response;
+};
+
+// Loop arrays of products and get important data.
+export const parseProductsData = (products: AnyData[]): IProductData[] => {
+    return products.map((item: AnyData) => {
+        // Remove keys that are not necesary.
+        const {
+            // eslint-disable-next-line
+            sold_quantity,
+            ...itemData
+        } = parseProductDetailData(item);
+        return itemData as IProductData;
+    })
+};
+
+// Loop arrays of products and get important data.
+export const parseProductDetailData = (item: AnyData): IProductDetailData => {
+    return {
+        id: item.id as string,
+        title: item.title as string,
+        price: {
+            currency: item.currency_id as string,
+            amount: item.price as number,
+            decimals: 2 as number,
+        },
+        condition: item.condition as string,
+        free_shipping: item.shipping.free_shipping as boolean,
+        picture: item.thumbnail as string,
+        sold_quantity: item?.sold_quantity as number
+    } as IProductDetailData;
+};
+
+// Parse category names from category objects.
+export const parseCategoryNames = (categories: ICategoryPath[]): string[] => {
+    return categories?.map((category: ICategoryPath) => category.name)
 };

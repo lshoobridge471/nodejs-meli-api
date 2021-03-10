@@ -28,8 +28,46 @@ describe('items route test suite', () => {
 
     const mockedResponse = {
         ...defaultJSONResponse,
-        id: 33,
-        name: "Macbook PRO.",
+        results: [{
+            id: 33,
+            title: "Macbook PRO.",
+            shipping: {
+                free_shipping: true
+            },
+            price: 33,
+            currency_id: "ARS",
+            condition: "new",
+            thumbnail: "thumburl"
+        }],
+        filters: [
+            {
+                values: [{
+                    path_from_root: [
+                        {
+                            id: "1",
+                            name: "categ1"
+                        }
+                    ]
+                }]
+            }
+        ]
+    };
+
+    const mockedParsedResponse = {
+        ...defaultJSONResponse,
+        items: [{
+            id: mockedResponse.results[0]?.id,
+            title: mockedResponse.results[0]?.title,
+            price: {
+                currency: mockedResponse.results[0]?.currency_id,
+                amount: mockedResponse.results[0]?.price,
+                decimals: 2
+            },
+            condition: mockedResponse.results[0]?.condition,
+            free_shipping: mockedResponse.results[0]?.shipping?.free_shipping,
+            picture: mockedResponse.results[0]?.thumbnail
+        }],
+        categories: ["categ1"]
     };
 
     it('items route test fetch mocked data', async () => {
@@ -39,7 +77,7 @@ describe('items route test suite', () => {
         // Mock responses
         moxios.stubRequest(urlSearch, {
             status: 200,
-            response: mockedResponse
+            response: mockedResponse,
         });
 
         // Create the router
@@ -54,7 +92,7 @@ describe('items route test suite', () => {
         // Parse JSON response
         const jsonResponse = JSON.parse(response.text);
         // Check reponse data
-        expect(mockedResponse).toEqual(jsonResponse);
+        expect(jsonResponse).toEqual(mockedParsedResponse);
         // Check url's called
         expect(moxios.requests.at(0).url).toBe(urlSearch);
         expect(moxios.requests.mostRecent().url).toBe(urlSearch);

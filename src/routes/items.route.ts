@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { parseMELIAPISearchURL, defaultJSONResponse } from '../utils/utils';
+import { parseMELIAPISearchURL, defaultJSONResponse, parseProductsData, parseCategoryNames } from '../utils/utils';
 import { JSONResponse } from '../types/interfaces';
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import axios from 'axios';
 
 const ItemsRoute = async (req: Request, res: Response): Promise<void>  => {
     // Default response.
@@ -15,13 +15,27 @@ const ItemsRoute = async (req: Request, res: Response): Promise<void>  => {
 
     // Call to the url
     await axios.get(url)
-    .then((response: AxiosResponse) => {
+        .then(({ data }) => {
+        const {
+            results,
+            filters
+        } = data;
+        // Replace key values from results.
+        const categoriesParsed = JSON.parse(JSON.stringify(filters).replace('values', 'results'));
+        // Get array of strings with names of categoryes
+        const categories: string[] = parseCategoryNames(categoriesParsed[0]?.results[0]?.path_from_root);
+        // Parse items data
+        const items = parseProductsData(results);
         // If the response is OK.
-        jsonResponse = {...jsonResponse, ...response.data };
+        jsonResponse = {
+            ...jsonResponse,
+            items,
+            categories
+        };
     })
-    .catch((err: AxiosError) => {
+    .catch(({ message }) => {
         // If the response is ERROR.
-        jsonResponse.error = err.message;
+        jsonResponse.error = message;
     });
     res.json(jsonResponse);
 };
