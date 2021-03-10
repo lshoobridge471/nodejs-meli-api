@@ -11,7 +11,8 @@
     "start": "node .",
     "test": "jest",
     "lint": "eslint . --ext .ts",
-    "lint:fix": "npm run lint -- --fix"
+    "lint:fix": "npm run lint -- --fix",
+    "ts-check": "./node_modules/typescript/bin/tsc --noEmit -p tsconfig.json"
   },
   "keywords": [],
   "author": "",
