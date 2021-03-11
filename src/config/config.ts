@@ -7,7 +7,7 @@ dotenv.config();
 const {
     NODE_ENV = 'development',
     SERVER_HOST = 'localhost',
-    SERVER_PORT = '3000',
+    SERVER_PORT = '8080',
     MELIAPI_URL = 'https://api.mercadolibre.com',
     AUTHOR_NAME = 'Lucas',
     AUTHOR_LASTNAME = 'Shoobridge'
